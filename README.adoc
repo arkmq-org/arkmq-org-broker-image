@@ -1,4 +1,6 @@
-# ArkMQ Broker container image
+# ArkMQ Broker container image powered by https://activemq.apache.org/components/artemis/[Apache Artemis]
+
+ArkMQ Broker is a container image for running https://activemq.apache.org/components/artemis/[Apache Artemis] messaging broker in containerized environments.
 
 ## License
 

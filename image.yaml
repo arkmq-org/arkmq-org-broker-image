@@ -1,7 +1,7 @@
 schema_version: 1
 
 name: "arkmq-org/arkmq-org-broker"
-description: "ArkMQ Broker container image"
+description: "ArkMQ Broker is a container image for running Apache Artemis messaging broker in containerized environments"
 version: "2.0.10"
 from: "registry.access.redhat.com/ubi9/openjdk-17@sha256:615a2e789a3b2d982ec9e126d525697032440b1eace5dfea4fe6618cc85a7935"
 
@@ -10,6 +10,12 @@ labels:
     value: "ArkMQ Broker"
   - name: "maintainer"
     value: "ArkMQ <info@arkmq.org>"
+  - name: "org.opencontainers.image.title"
+    value: "ArkMQ Broker Powered by Apache Artemis"
+  - name: "org.opencontainers.image.description"
+    value: "ArkMQ Broker is a container image for running Apache Artemis messaging broker in containerized environments"
+  - name: "org.opencontainers.image.vendor"
+    value: "ArkMQ"
 
 envs:
   - name: "AMQ_HOME"
