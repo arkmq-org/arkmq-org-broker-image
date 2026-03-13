@@ -103,18 +103,13 @@ jobs:
           ./amq/bin/artemis check queue --name TEST --produce 1000 --browse 1000 --consume 1000 --user admin --password admin --url tcp://$CONTAINER_IP:61616
           podman kill $CONTAINER_ID
 
-      - name: Push the dev image
-        if: ${{ github.event_name == 'push' }}
-        run: |
-          COMMIT_TAG=dev.$(date +%Y%m%d).$(git rev-parse --short "$GITHUB_SHA")
-          podman login --username=${{ secrets.QUAY_USERNAME }} --password=${{ secrets.QUAY_PASSWORD }} quay.io
-          podman manifest push $IMAGE_NAME:dev.latest docker://quay.io/${{ secrets.QUAY_NAMESPACE }}/$IMAGE_NAME:$COMMIT_TAG
-          podman manifest push $IMAGE_NAME:dev.latest docker://quay.io/${{ secrets.QUAY_NAMESPACE }}/$IMAGE_NAME:dev.latest
-
-      - name: Push the snapshot image
+      - name: Push the image
         if: ${{ github.event_name == 'schedule' || inputs.snapshot }}
         run: |
           podman login --username=${{ secrets.QUAY_USERNAME }} --password=${{ secrets.QUAY_PASSWORD }} quay.io
+          if [ "${{ github.event_name }}" = "schedule" ]; then
+            podman manifest push $IMAGE_NAME:dev.latest docker://quay.io/${{ secrets.QUAY_NAMESPACE }}/$IMAGE_NAME:dev.latest
+          fi
           podman manifest push $IMAGE_NAME:dev.latest docker://quay.io/${{ secrets.QUAY_NAMESPACE }}/$IMAGE_NAME:snapshot
 
       - name: Trigger children
