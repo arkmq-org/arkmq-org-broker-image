@@ -119,7 +119,7 @@ jobs:
 
       - name: Trigger children
         if: ${{ github.event_name == 'schedule' || (inputs.trigger_children && !inputs.trigger_release) }}
-        uses: actions/github-script@v8
+        uses: actions/github-script@v9
         with:
           github-token: ${{ secrets.BOT_TOKEN }}
           script: |
@@ -136,7 +136,7 @@ jobs:
 
       - name: Trigger release
         if: ${{ inputs.trigger_release }}
-        uses: actions/github-script@v8
+        uses: actions/github-script@v9
         with:
           github-token: ${{ secrets.BOT_TOKEN }}
           script: |
